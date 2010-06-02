@@ -1,7 +1,7 @@
 Summary:	C/C++ IDE --  Write and run programs. Insert statements, idioms, comments etc.
 Name:		vim-plugin-cvim
 Version:	5.11
-Release:	0.2
+Release:	0.3
 License:	vim
 Group:		Applications/Editors/Vim
 Source0:	http://carme.pld-linux.org/~uzsolt/sources/%{name}-%{version}.zip
@@ -12,6 +12,7 @@ Source2:	http://lug.fh-swf.de/vim/vim-c/c-hotkeys.pdf
 # Source2-md5:	c2f5859dfc567db1262b5f4f6ce3f36f
 URL:		http://www.vim.org/scripts/script.php?script_id=213
 BuildRequires:	unzip
+Requires(post,postun):	/usr/bin/vim
 Requires:	vim-rt >= 4:7.0
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -47,6 +48,12 @@ cp -a %{SOURCE1} %{SOURCE2} $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post
+vim -c "helptags %{_vimdatadir}/doc" -c "q"
+
+%postun
+vim -c "helptags %{_vimdatadir}/doc" -c "q"
 
 %files
 %defattr(644,root,root,755)
