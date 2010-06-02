@@ -12,7 +12,6 @@ Source2:	http://lug.fh-swf.de/vim/vim-c/c-hotkeys.pdf
 # Source2-md5:	c2f5859dfc567db1262b5f4f6ce3f36f
 URL:		http://www.vim.org/scripts/script.php?script_id=213
 BuildRequires:	unzip
-# for _vimdatadir existence
 Requires:	vim-rt >= 4:7.0
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -31,20 +30,20 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_vimdatadir}
 
 install -d $RPM_BUILD_ROOT%{_vimdatadir}/ftplugin
-install ftplugin/c.vim $RPM_BUILD_ROOT%{_vimdatadir}/ftplugin
+cp -a ftplugin/c.vim $RPM_BUILD_ROOT%{_vimdatadir}/ftplugin
 
 install -d $RPM_BUILD_ROOT%{_vimdatadir}/plugin
-install plugin/c.vim $RPM_BUILD_ROOT%{_vimdatadir}/plugin
+cp -a plugin/c.vim $RPM_BUILD_ROOT%{_vimdatadir}/plugin
 
 install -d $RPM_BUILD_ROOT%{_vimdatadir}/doc
-install doc/csupport.txt $RPM_BUILD_ROOT%{_vimdatadir}/doc
+cp -a doc/csupport.txt $RPM_BUILD_ROOT%{_vimdatadir}/doc
 
 install -d $RPM_BUILD_ROOT%{_vimdatadir}/c-support
-cp -r c-support/{codesnippets,rc,scripts,templates,wordlists} \
+cp -a c-support/{codesnippets,rc,scripts,templates,wordlists} \
 	$RPM_BUILD_ROOT%{_vimdatadir}/c-support
 
 install -d $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
-install %{SOURCE1} %{SOURCE2} $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
+cp -a %{SOURCE1} %{SOURCE2} $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
